@@ -1,8 +1,8 @@
-package com.kudiukin.homework3.service;
+package com.kudiukin.homework4.service;
 
-import com.kudiukin.homework3.model.Person;
-import com.kudiukin.homework3.repository.PersonCollection;
-import com.kudiukin.homework3.utils.exception.NotFoundException;
+import com.kudiukin.homework4.model.Person;
+import com.kudiukin.homework4.repository.PersonCollection;
+import com.kudiukin.homework4.utils.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;

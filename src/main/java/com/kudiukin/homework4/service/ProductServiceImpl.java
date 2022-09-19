@@ -1,8 +1,8 @@
-package com.kudiukin.homework3.service;
+package com.kudiukin.homework4.service;
 
-import com.kudiukin.homework3.model.Product;
-import com.kudiukin.homework3.repository.ProductCollection;
-import com.kudiukin.homework3.utils.exception.NotFoundException;
+import com.kudiukin.homework4.model.Product;
+import com.kudiukin.homework4.repository.ProductCollection;
+import com.kudiukin.homework4.utils.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;

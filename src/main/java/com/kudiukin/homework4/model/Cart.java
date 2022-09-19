@@ -1,4 +1,4 @@
-package com.kudiukin.homework3.model;
+package com.kudiukin.homework4.model;
 
 import lombok.Getter;
 import lombok.Setter;

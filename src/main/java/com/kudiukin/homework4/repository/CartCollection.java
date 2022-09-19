@@ -1,6 +1,6 @@
-package com.kudiukin.homework3.repository;
+package com.kudiukin.homework4.repository;
 
-import com.kudiukin.homework3.model.Cart;
+import com.kudiukin.homework4.model.Cart;
 import lombok.Getter;
 import org.springframework.stereotype.Component;
 

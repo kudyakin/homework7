@@ -1,8 +1,8 @@
-package com.kudiukin.homework3.controller;
+package com.kudiukin.homework4.controller;
 
-import com.kudiukin.homework3.model.Person;
-import com.kudiukin.homework3.service.PersonService;
-import com.kudiukin.homework3.utils.exception.NotFoundException;
+import com.kudiukin.homework4.model.Person;
+import com.kudiukin.homework4.service.PersonService;
+import com.kudiukin.homework4.utils.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,7 +1,7 @@
-package com.kudiukin.homework3.service;
+package com.kudiukin.homework4.service;
 
-import com.kudiukin.homework3.model.Cart;
-import com.kudiukin.homework3.utils.exception.NotFoundException;
+import com.kudiukin.homework4.model.Cart;
+import com.kudiukin.homework4.utils.exception.NotFoundException;
 
 import java.util.List;
 

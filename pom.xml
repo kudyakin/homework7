@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.kudiukin</groupId>
-    <artifactId>homework3</artifactId>
+    <artifactId>homework4</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>homework3</name>
-    <description>homework3</description>
+    <name>homework4</name>
+    <description>homework4</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
