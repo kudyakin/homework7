@@ -1,11 +1,11 @@
 package com.kudiukin.homework4.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,23 +13,20 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Entity
-public class Cart {
+public class Shop {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long cartId;
+    private Long Id;
+    private String name;
+    private String address;
 
-    @ManyToOne
-    private Person person;
-
-    @OneToMany
-    @JoinColumn
+    @OneToMany(cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Product> products = new ArrayList<>();
 
-    private BigDecimal sum = new BigDecimal("0.00");
-
-    public Cart(Person person) {
-        this.person = person;
+    public Shop(String name, String address) {
+        this.name = name;
+        this.address = address;
     }
-
 }

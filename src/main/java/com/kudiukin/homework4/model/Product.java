@@ -1,28 +1,29 @@
 package com.kudiukin.homework4.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.util.Objects;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@Entity
 public class Product {
 
-    private Integer productId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    private Shop shop;
     private String name;
     private Double price;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Product)) return false;
-        Product product = (Product) o;
-        return getProductId().equals(product.getProductId());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getProductId());
+    public Product(String name, Double price) {
+        this.name = name;
+        this.price = price;
     }
 }

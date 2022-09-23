@@ -1,6 +1,6 @@
 package com.kudiukin.homework4.controller;
 
-import com.kudiukin.homework4.Dto.CartDto;
+import com.kudiukin.homework4.dto.CartDto;
 import com.kudiukin.homework4.model.Cart;
 import com.kudiukin.homework4.service.CartService;
 import com.kudiukin.homework4.utils.exception.NotFoundException;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(path="/shop/cart")
+@RequestMapping(path="/api/cart")
 public class CartController {
 
     private final CartService cartService;
@@ -21,7 +21,7 @@ public class CartController {
 
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.OK)
-    public Cart createCartByPersonId(@RequestParam Integer id) throws NotFoundException {
+    public Cart createCartByPersonId(@RequestParam Long id) throws NotFoundException {
         return cartService.createCartByPersonId(id);
     }
 
@@ -39,25 +39,26 @@ public class CartController {
 
     @DeleteMapping("/{cartId}/clean")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void removeAllProductsFromCartById(@PathVariable Integer cartId) throws NotFoundException {
+    public void removeAllProductsFromCartById(@PathVariable Long cartId) throws NotFoundException {
         cartService.removeAllProductsFromCartById(cartId);
     }
 
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
-    public List<Cart> getAllByPersonId(@RequestParam Integer id) throws NotFoundException {
-        return cartService.getAllByPersonId(id);
+    public List<Cart> getAllCarts(){
+        return cartService.getAllCarts();
     }
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
-    public Cart getCartById(@RequestParam Integer cartId) throws NotFoundException {
+    public Cart getCartById(@RequestParam Long cartId) throws NotFoundException {
         return cartService.getCartById(cartId);
     }
 
     @DeleteMapping()
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void removeCartById(@RequestParam Integer cartId) throws NotFoundException {
+    public Long removeCartById(@RequestParam Long cartId) throws NotFoundException {
         cartService.removeCartById(cartId);
+        return cartId;
     }
 }

@@ -1,36 +1,35 @@
 package com.kudiukin.homework4.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@Entity
 public class Person {
 
-        private Integer id;
-        private String firstName;
-        private String lastName;
-        private String email;
-        private String phone;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String firstName;
+    private String lastName;
 
-        @JsonIgnore
-        private final List<Cart> carts = new ArrayList<>();
+    private String email;
+    private String phone;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Person)) return false;
-        Person person = (Person) o;
-        return getId().equals(person.getId());
-    }
+    @OneToMany(cascade = CascadeType.ALL)
+    @JsonIgnore
+    List<Cart> carts = new ArrayList<>();
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId());
+    public Person(String firstName, String lastName, String email, String phone) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
     }
 }
