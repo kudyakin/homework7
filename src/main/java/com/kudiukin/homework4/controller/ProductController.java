@@ -1,6 +1,7 @@
 package com.kudiukin.homework4.controller;
 
 import com.kudiukin.homework4.dto.ProductDto;
+import com.kudiukin.homework4.dto.ProductUpdateDto;
 import com.kudiukin.homework4.model.Product;
 import com.kudiukin.homework4.service.ProductService;
 import com.kudiukin.homework4.utils.exception.NotFoundException;
@@ -33,8 +34,8 @@ public class ProductController {
 
     @PutMapping ("/update")
     @ResponseStatus(HttpStatus.OK)
-    public Product updateProduct(@RequestParam Long productId, @RequestBody Product product) {
-        return productService.updateProduct(productId, product);
+    public Product updateProduct(@RequestBody ProductUpdateDto dto) {
+        return productService.updateProduct(dto);
     }
 
     @DeleteMapping("/delete")

@@ -1,6 +1,7 @@
 package com.kudiukin.homework4.service;
 
 import com.kudiukin.homework4.dto.ProductDto;
+import com.kudiukin.homework4.dto.ProductUpdateDto;
 import com.kudiukin.homework4.model.Product;
 import com.kudiukin.homework4.repository.ProductRepository;
 import com.kudiukin.homework4.utils.exception.NotFoundException;
@@ -39,15 +40,19 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Product updateProduct(Long productId, Product product){
-        return productRepository.findById(productId)
+    public Product updateProduct(ProductUpdateDto dto) {
+        return productRepository.findById(dto.getProductId())
                 .map(entity -> {
-                    entity.setShop(product.getShop());
-                    entity.setName(product.getName());
-                    entity.setPrice(product.getPrice());
+                    entity.setName(dto.getName());
+                    entity.setPrice(dto.getPrice());
+                    try {
+                        entity.setShop(shopService.getShopById(dto.getShopId()));
+                    } catch (NotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
                     return productRepository.save(entity);
                 })
-                .orElseThrow(() -> new EntityNotFoundException("Not Found id = " + productId));
+                .orElseThrow(() -> new EntityNotFoundException("Not Found id = " + dto.getProductId()));
     }
 
     @Override
