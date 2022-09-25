@@ -69,6 +69,7 @@ public class CartServiceImpl implements CartService {
             Cart cart = cartRepository.findById(cartId).get();
             cart.getProducts().clear();
             cart.setSum(new BigDecimal("0.00"));
+            cartRepository.save(cart);
             return cartId;
         } else {
             throw new NotFoundException("Cart with ID #" + cartId + " is empty");
