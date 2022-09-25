@@ -58,6 +58,7 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public Long deleteProduct(Long productId) throws NotFoundException {
         if (productRepository.existsById(productId)) {
+            shopService.getShopById((productRepository.findById(productId).get()).getShop().getId()).getProducts().remove(getProductById(productId));
             productRepository.deleteById(productId);
             return productId;
         } else {
