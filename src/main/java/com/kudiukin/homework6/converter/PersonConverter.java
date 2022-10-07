@@ -12,6 +12,7 @@ public final class PersonConverter {
         personDto.setLastName(person.getLastName());
         personDto.setEmail(person.getEmail());
         personDto.setPhone(person.getPhone());
+        personDto.setCarts(person.getCarts());
         return personDto;
     }
 
@@ -22,6 +23,7 @@ public final class PersonConverter {
         person.setLastName(personDto.getLastName());
         person.setEmail(personDto.getEmail());
         person.setPhone(personDto.getPhone());
+        person.setCarts(personDto.getCarts());
         return person;
     }
 

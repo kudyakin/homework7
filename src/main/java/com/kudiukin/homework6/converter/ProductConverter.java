@@ -11,6 +11,7 @@ public final class ProductConverter {
         productDto.setPrice(product.getPrice());
         productDto.setShopId(product.getShop().getId());
         productDto.setProductId(product.getId());
+        productDto.setShop(product.getShop());
         return productDto;
     }
 

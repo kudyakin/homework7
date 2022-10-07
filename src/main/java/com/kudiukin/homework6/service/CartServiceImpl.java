@@ -1,6 +1,7 @@
 package com.kudiukin.homework6.service;
 
 import com.kudiukin.homework6.dto.CartDto;
+import com.kudiukin.homework6.dto.ProductDto;
 import com.kudiukin.homework6.model.Cart;
 import com.kudiukin.homework6.model.Product;
 import com.kudiukin.homework6.repository.CartRepository;
@@ -31,9 +32,9 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public CartDto createCartByPersonId(Long Id) throws NotFoundException {
-        Cart cart = new Cart(getPersonFromPersonDto(personService.getPersonById(Id)));
-        personService.getPersonById(Id).getCarts().add(cart);
+    public CartDto createCartByPersonId(Long id) throws NotFoundException {
+        Cart cart = new Cart(getPersonFromPersonDto(personService.getPersonById(id)));
+        personService.getPersonById(id).getCarts().add(cart);
         return getCartDtoFromCart(cartRepository.save(cart));
     }
 

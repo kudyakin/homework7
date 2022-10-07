@@ -20,8 +20,8 @@ public class CartController {
 
     @PostMapping("/create")
     @ResponseStatus(HttpStatus.OK)
-    public CartDto createCartByPersonId(@RequestParam Long Id) throws NotFoundException {
-        return cartService.createCartByPersonId(Id);
+    public CartDto createCartByPersonId(@RequestParam Long id) throws NotFoundException {
+        return cartService.createCartByPersonId(id);
     }
 
     @PutMapping("/add")

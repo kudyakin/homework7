@@ -22,7 +22,7 @@ public class Cart {
     @ManyToOne
     private Person person;
 
-    @OneToMany
+    @OneToMany(orphanRemoval = true)
     @JoinColumn
     private List<Product> products = new ArrayList<>();
 

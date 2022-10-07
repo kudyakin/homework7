@@ -20,7 +20,6 @@ public final class CartConverter {
         cart.setPerson(cartDto.getPerson());
         cart.setProducts(cartDto.getProducts());
         cart.setSum(cartDto.getSum());
-        cart.setProducts(cartDto.getProducts());
         return cart;
     }
 }
