@@ -4,7 +4,7 @@ import com.kudiukin.homework6.dto.CartDto;
 import com.kudiukin.homework6.model.Cart;
 import com.kudiukin.homework6.model.Product;
 import com.kudiukin.homework6.repository.CartRepository;
-import com.kudiukin.homework6.utils.exception.NotFoundException;
+import com.kudiukin.homework6.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;

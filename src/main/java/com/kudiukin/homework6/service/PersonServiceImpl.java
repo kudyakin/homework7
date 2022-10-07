@@ -2,7 +2,7 @@ package com.kudiukin.homework6.service;
 
 import com.kudiukin.homework6.dto.PersonDto;
 import com.kudiukin.homework6.repository.PersonRepository;
-import com.kudiukin.homework6.utils.exception.NotFoundException;
+import com.kudiukin.homework6.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;

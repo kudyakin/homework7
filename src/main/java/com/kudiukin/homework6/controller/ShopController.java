@@ -2,7 +2,7 @@ package com.kudiukin.homework6.controller;
 
 import com.kudiukin.homework6.dto.ShopDto;
 import com.kudiukin.homework6.service.ShopService;
-import com.kudiukin.homework6.utils.exception.NotFoundException;
+import com.kudiukin.homework6.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
