@@ -4,11 +4,15 @@ import com.kudiukin.homework6.dto.PersonDto;
 import com.kudiukin.homework6.service.PersonService;
 import com.kudiukin.homework6.NotFoundException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping(path="/api/person")
 public class PersonController {
     private final PersonService personService;
@@ -17,33 +21,58 @@ public class PersonController {
         this.personService = personService;
     }
 
-    @PostMapping("/create")
-    @ResponseStatus(HttpStatus.OK)
-    public PersonDto createPerson(@RequestBody PersonDto personDto){
-        return personService.createPerson(personDto);
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public String createPersonView(Model model) {
+        model.addAttribute("person", new PersonDto());
+        return "createPerson";
     }
 
-    @GetMapping()
-    @ResponseStatus(HttpStatus.OK)
-    public PersonDto getPersonById(@RequestParam Long id) throws NotFoundException {
-        return personService.getPersonById(id);
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public String createPerson(@ModelAttribute("person") PersonDto personDto){
+        personService.createPerson(personDto);
+        return "createPersonSuccess";
     }
 
-    @PutMapping ("/update")
-    @ResponseStatus(HttpStatus.OK)
-    public PersonDto updatePerson(@RequestBody PersonDto     personDto) {
-        return personService.updatePerson(personDto);
+    @RequestMapping(value = "/get", method = RequestMethod.GET)
+    public String getPersonByIdView(Model model) {
+        model.addAttribute("personById", new PersonDto());
+        return "getPerson";
     }
 
-    @DeleteMapping("/delete")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletePerson(@RequestParam Long id) throws NotFoundException {
-        personService.deletePerson(id);
+    @RequestMapping(value = "/get", method = RequestMethod.POST)
+    public String getPersonById(@ModelAttribute("personById") PersonDto personDto, Model model) throws NotFoundException {
+        PersonDto personById = personService.getPersonById(personDto.getId());
+        model.addAttribute("personById", personById);
+        return "getPersonSuccess";
     }
 
-    @GetMapping("/all")
-    @ResponseStatus(HttpStatus.OK)
-    public List<PersonDto> getAll() {
-        return personService.getAllPersons();
+    @RequestMapping(value = "/update", method = RequestMethod.GET)
+    public String updatePersonView(Model model) {
+        model.addAttribute("person", new PersonDto());
+        return "updatePerson";
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public String updatePerson(@ModelAttribute("person") PersonDto personDto) {
+        personService.updatePerson(personDto);
+        return "updatePersonSuccess";
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public String deletePersonView(Model model) {
+        model.addAttribute("person", new PersonDto());
+        return "deletePerson";
+    }
+
+    @RequestMapping(value = "/delete", method = {RequestMethod.DELETE, RequestMethod.POST})
+    public String deletePerson(@ModelAttribute("person") PersonDto personDto) throws NotFoundException {
+        personService.deletePerson(personDto.getId());
+        return "deletePersonSuccess";
+    }
+
+    @GetMapping( "/all")
+    public String getAllPersons(Model model) {
+        model.addAttribute("all", personService.getAllPersons());
+        return "allPersons";
     }
 }
