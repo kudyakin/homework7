@@ -2,6 +2,7 @@ package com.kudiukin.homework6.controller;
 
 import com.kudiukin.homework6.dto.PersonDto;
 import com.kudiukin.homework6.dto.ProductDto;
+import com.kudiukin.homework6.dto.ShopDto;
 import com.kudiukin.homework6.service.ProductService;
 import com.kudiukin.homework6.NotFoundException;
 import org.springframework.http.HttpStatus;
@@ -31,29 +32,48 @@ public class ProductController {
         return "createProductSuccess";
     }
 
-    @GetMapping()
-    @ResponseStatus(HttpStatus.OK)
-    public ProductDto getProductById(@RequestParam Long productId) throws NotFoundException {
-        return productService.getProductById(productId);
-    }
-
-    @PutMapping ("/update")
-    @ResponseStatus(HttpStatus.OK)
-    public ProductDto updateProduct(@RequestBody ProductDto productDto) {
-        return productService.updateProduct(productDto);
-    }
-
-    @DeleteMapping("/delete")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteProduct(@RequestParam Long productId) throws NotFoundException {
-        productService.deleteProduct(productId);
-    }
-
-//    @GetMapping("/all")
+//    @GetMapping()
 //    @ResponseStatus(HttpStatus.OK)
-//    public List<ProductDto> getAll() {
-//        return productService.getAllProducts();
+//    public ProductDto getProductById(@RequestParam Long productId) throws NotFoundException {
+//        return productService.getProductById(productId);
 //    }
+
+    @RequestMapping(value = "/get", method = RequestMethod.GET)
+    public String getProductByIdView(Model model) {
+        model.addAttribute("productById", new ProductDto());
+        return "getProduct";
+    }
+
+    @RequestMapping(value = "/get", method = RequestMethod.POST)
+    public String getProductById(@ModelAttribute("productById") ProductDto productDto, Model model) throws NotFoundException {
+        ProductDto productById = productService.getProductById(productDto.getProductId());
+        model.addAttribute("productById", productById);
+        return "getProductSuccess";
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.GET)
+    public String updatePrdocutView(Model model) {
+        model.addAttribute("product", new ProductDto());
+        return "updateProduct";
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public String updateProduct(@ModelAttribute("product") ProductDto productDto) {
+        productService.updateProduct(productDto);
+        return "updateProductSuccess";
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public String deleteProductView(Model model) {
+        model.addAttribute("product", new ProductDto());
+        return "deleteProduct";
+    }
+
+    @RequestMapping(value = "/delete", method = {RequestMethod.DELETE, RequestMethod.POST})
+    public String deleteProduct(@ModelAttribute("product") ProductDto productDto) throws NotFoundException {
+        productService.deleteProduct(productDto.getProductId());
+        return "deleteProductSuccess";
+    }
 
     @GetMapping( "/all")
     public String getAllProducts(Model model) {

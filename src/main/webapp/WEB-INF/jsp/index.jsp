@@ -26,9 +26,9 @@
         <h2>Products</h2>
         <a href="${pageContext.request.contextPath}api/product/create">Create new product</a><br>
         <a href="${pageContext.request.contextPath}api/product/all">View all products</a><br>
-<%--        <a href="${pageContext.request.contextPath}api/product/get">View product by ID</a><br>--%>
-<%--        <a href="${pageContext.request.contextPath}api/product/update">Update product</a><br>--%>
-<%--        <a href="${pageContext.request.contextPath}api/product/delete">Delete product</a><br>--%>
+        <a href="${pageContext.request.contextPath}api/product/get">View product by ID</a><br>
+        <a href="${pageContext.request.contextPath}api/product/update">Update product</a><br>
+        <a href="${pageContext.request.contextPath}api/product/delete">Delete product</a><br>
 
         <h2>Carts</h2>
         <a href="${pageContext.request.contextPath}api/cart/create">Create new cart</a><br>
