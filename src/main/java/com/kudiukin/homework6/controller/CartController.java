@@ -1,14 +1,15 @@
 package com.kudiukin.homework6.controller;
 
 import com.kudiukin.homework6.dto.CartDto;
+import com.kudiukin.homework6.dto.PersonDto;
 import com.kudiukin.homework6.service.CartService;
 import com.kudiukin.homework6.NotFoundException;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-@RestController
+@Controller
 @RequestMapping(path="/api/cart")
 public class CartController {
 
@@ -18,10 +19,17 @@ public class CartController {
         this.cartService = cartService;
     }
 
-    @PostMapping("/create")
-    @ResponseStatus(HttpStatus.OK)
-    public CartDto createCartByPersonId(@RequestParam Long id) throws NotFoundException {
-        return cartService.createCartByPersonId(id);
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public String createCartView(Model model) {
+        model.addAttribute("person", new PersonDto());
+        model.addAttribute("cart", new CartDto());
+        return "createCart";
+    }
+
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public String createCart(@ModelAttribute("person") PersonDto personDto) throws NotFoundException {
+        cartService.createCartByPersonId(personDto.getId());
+        return "createCartSuccess";
     }
 
     @PutMapping("/add")
@@ -42,10 +50,10 @@ public class CartController {
         cartService.removeAllProductsFromCartById(cartId);
     }
 
-    @GetMapping("/all")
-    @ResponseStatus(HttpStatus.OK)
-    public List<CartDto> getAllCarts(){
-        return cartService.getAllCarts();
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public String getAllcarts(Model model) {
+        model.addAttribute("all", cartService.getAllCarts());
+        return "allCarts";
     }
 
     @GetMapping()

@@ -3,14 +3,9 @@ package com.kudiukin.homework6.controller;
 import com.kudiukin.homework6.dto.PersonDto;
 import com.kudiukin.homework6.service.PersonService;
 import com.kudiukin.homework6.NotFoundException;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping(path="/api/person")

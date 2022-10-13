@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta charset="ISO-8859-1">
-    <title>Create new person</title>
+    <title>Create cart</title>
     <style type="text/css">
         label {
             display: inline-block;
@@ -27,20 +27,11 @@
     <a href="${pageContext.request.contextPath}/">&#8592 Back to main menu</a>
 </div>
 <div align="center">
-    <h2>Create new person</h2>
+    <h2>Create new cart</h2>
     <form:form action="create" method="post" modelAttribute="person">
 
-        <form:label path="firstName">First Name:</form:label>
-        <form:input required="required" path="firstName"/><br/>
-
-        <form:label path="lastName">Last Name:</form:label>
-        <form:input required="required" path="lastName"/><br/>
-
-        <form:label path="email">Email:</form:label>
-        <form:input required="required" path="email"/><br/>
-
-        <form:label path="phone">Phone:</form:label>
-        <form:input required="required" path="phone"/><br/>
+        <form:label path="id">Person ID:</form:label>
+        <form:input required="required" path="id"/><br/>
 
         <form:button>Register</form:button>
     </form:form>

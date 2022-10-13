@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="ISO-8859-1">
-    <title>Creating new person success</title>
+    <title>Creating new product success</title>
     <style type="text/css">
         span {
             display: inline-block;
@@ -18,11 +18,10 @@
     <a href="${pageContext.request.contextPath}/">&#8592 Back to main menu</a>
 </div>
 <div align="center">
-    <h2>Creating new person success</h2>
-    <span>First Name:</span><span>${person.firstName}</span><br/>
-    <span>Last Name:</span><span>${person.lastName}</span><br/>
-    <span>Email:</span><span>${person.email}</span><br/>
-    <span>Phone:</span><span>${person.phone}</span><br/>
+    <h2>Creating new product success</h2>
+    <span>Name:</span><span>${product.name}</span><br/>
+    <span>Price:</span><span>${product.price}</span><br/>
+    <span>Shop ID:</span><span>${product.shopId}</span><br/>
 </div>
 <br>
 </body>
