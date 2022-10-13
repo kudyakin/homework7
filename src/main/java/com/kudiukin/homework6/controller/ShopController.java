@@ -59,5 +59,4 @@ public class ShopController {
         model.addAttribute("all", shopService.getAllShops());
         return "allShops";
     }
-
 }
