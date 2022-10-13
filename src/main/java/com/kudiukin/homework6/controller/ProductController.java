@@ -1,11 +1,8 @@
 package com.kudiukin.homework6.controller;
 
-import com.kudiukin.homework6.dto.PersonDto;
 import com.kudiukin.homework6.dto.ProductDto;
-import com.kudiukin.homework6.dto.ShopDto;
 import com.kudiukin.homework6.service.ProductService;
 import com.kudiukin.homework6.NotFoundException;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -31,12 +28,6 @@ public class ProductController {
         productService.createProduct(productDto);
         return "createProductSuccess";
     }
-
-//    @GetMapping()
-//    @ResponseStatus(HttpStatus.OK)
-//    public ProductDto getProductById(@RequestParam Long productId) throws NotFoundException {
-//        return productService.getProductById(productId);
-//    }
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     public String getProductByIdView(Model model) {

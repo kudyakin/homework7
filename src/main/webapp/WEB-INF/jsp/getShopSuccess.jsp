@@ -19,12 +19,25 @@
             <td>ID: </td>
             <td>${shopById.id}</td>
         <tr>
-            <td>First name: </td>
+            <td>Name: </td>
             <td>${shopById.name}</td>
         <tr>
-            <td>Last name: </td>
+            <td>Address: </td>
             <td>${shopById.address}</td>
     </table>
+        <span>Products:</span><table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+        </tr>
+        <c:forEach items="${shopById.products}" var="item">
+        <tr>
+            <td><c:out value="${item.id}"/></td>
+            <td><c:out value="${item.name}"/></td>
+            <td><c:out value="${item.price}"/></td>
+        </tr>
+        </c:forEach>
 </div>
 </body>
 </html>

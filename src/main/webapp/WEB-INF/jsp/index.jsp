@@ -33,11 +33,11 @@
         <h2>Carts</h2>
         <a href="${pageContext.request.contextPath}api/cart/create">Create new cart</a><br>
         <a href="${pageContext.request.contextPath}api/cart/all">View all carts</a><br>
-<%--        <a href="${pageContext.request.contextPath}api/cart/get">View cart by ID</a><br>--%>
-<%--        <a href="${pageContext.request.contextPath}api/cart/delete">Delete cart</a><br>--%>
-<%--        <a href="${pageContext.request.contextPath}api/cart/add">Add product to cart</a><br>--%>
-<%--        <a href="${pageContext.request.contextPath}api/cart/remove">Remove product from cart</a><br>--%>
-<%--        <a href="${pageContext.request.contextPath}api/cart/clean">Clean cart</a><br>--%>
+        <a href="${pageContext.request.contextPath}api/cart/get">View cart by ID</a><br>
+        <a href="${pageContext.request.contextPath}api/cart/delete">Delete cart</a><br>
+        <a href="${pageContext.request.contextPath}api/cart/add">Add product to cart</a><br>
+        <a href="${pageContext.request.contextPath}api/cart/remove">Remove product from cart</a><br>
+        <a href="${pageContext.request.contextPath}api/cart/clean">Clean cart</a><br>
 
         <h2>Shops</h2>
         <a href="${pageContext.request.contextPath}api/shop/create">Create new shop</a><br>

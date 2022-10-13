@@ -1,11 +1,8 @@
 package com.kudiukin.homework6.controller;
 
-import com.kudiukin.homework6.dto.PersonDto;
-import com.kudiukin.homework6.dto.ProductDto;
 import com.kudiukin.homework6.dto.ShopDto;
 import com.kudiukin.homework6.service.ShopService;
 import com.kudiukin.homework6.NotFoundException;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,12 +17,6 @@ public class ShopController {
         this.shopService = shopService;
     }
 
-//    @PostMapping("/create")
-//    @ResponseStatus(HttpStatus.OK)
-//    public ShopDto createShop(@RequestBody ShopDto shopDto){
-//        return shopService.createShop(shopDto);
-//    }
-
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String createShopView(Model model) {
         model.addAttribute("shop", new ShopDto());
@@ -37,12 +28,6 @@ public class ShopController {
         shopService.createShop(shopDto);
         return "createShopSuccess";
     }
-
-//    @GetMapping()
-//    @ResponseStatus(HttpStatus.OK)
-//    public ShopDto getShopById(@RequestParam Long shopId) throws NotFoundException {
-//        return shopService.getShopById(shopId);
-//    }
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     public String getShopByIdView(Model model) {

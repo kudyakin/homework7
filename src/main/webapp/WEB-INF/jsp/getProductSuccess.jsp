@@ -19,13 +19,13 @@
             <td>ID: </td>
             <td>${productById.productId}</td>
         <tr>
-            <td>First name: </td>
+            <td>Name: </td>
             <td>${productById.name}</td>
         <tr>
-            <td>Last name: </td>
+            <td>Price: </td>
             <td>${productById.price}</td>
         <tr>
-            <td>Email: </td>
+            <td>Shop ID: </td>
             <td>${productById.shopId}</td>
     </table>
 </div>
