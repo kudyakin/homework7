@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.kudiukin.homework6.converter.ProductConverter.getProductDtoFromProduct;
+import static com.kudiukin.homework6.converter.ProductConverter.getProductFromProductDto;
 import static com.kudiukin.homework6.converter.ShopConverter.getShopFromShopDto;
 
 @Service
@@ -62,7 +63,7 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public void deleteProduct(Long productId) throws NotFoundException {
         if (productRepository.existsById(productId)) {
-            shopService.getShopById((productRepository.findById(productId).get()).getShop().getId()).getProducts().remove(getProductById(productId));
+            shopService.getShopById((productRepository.findById(productId).get()).getShop().getId()).getProducts().remove(getProductFromProductDto(getProductById(productId)));
             productRepository.deleteById(productId);
         } else {
             throw new NotFoundException("Product with ID #" + productId + " is not found");
