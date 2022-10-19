@@ -39,19 +39,19 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Product updateProduct(Product product) {
-        return productRepository.findById(product.getId())
+    public Product updateProduct(Long productId, String name, Double price, Long shopId) {
+        return productRepository.findById(productId)
                 .map(entity -> {
-                    entity.setName(product.getName());
-                    entity.setPrice(product.getPrice());
+                    entity.setName(name);
+                    entity.setPrice(price);
                     try {
-                        entity.setShop(shopService.getShopById(product.getShop().getId()));
+                        entity.setShop(shopService.getShopById(shopId));
                     } catch (NotFoundException e) {
                         throw new RuntimeException(e);
                     }
                     return productRepository.save(entity);
                 })
-                .orElseThrow(() -> new EntityNotFoundException("Not Found id = " + product.getId()));
+                .orElseThrow(() -> new EntityNotFoundException("Not Found id = " + productId));
     }
 
     @Override

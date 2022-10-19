@@ -21,10 +21,6 @@
     <h2>Creating new shop success</h2>
     <span>Name:</span><span>${shop.name}</span><br/>
     <span>Address:</span><span>${shop.address}</span><br/>
-    <a href="${pageContext.request.contextPath}api/shop/create">Create new shop</a><br>
-    <a href="${pageContext.request.contextPath}api/shop/all">View all shops</a><br>
-    <a href="${pageContext.request.contextPath}api/shop/get">View shop by ID</a><br>
-    <a href="${pageContext.request.contextPath}api/shop/delete">Delete shop</a><br>
 </div>
 <br>
 </body>

@@ -11,7 +11,7 @@ public interface ProductService {
 
     Product getProductById(Long productId) throws NotFoundException;
 
-    Product updateProduct(Product product);
+    Product updateProduct(Long productId, String name, Double price, Long shopId);
 
     void deleteProduct(Long productId) throws NotFoundException;
 

@@ -49,14 +49,14 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.GET)
-    public String updatePrdocutView(Model model) {
+    public String updateProductView(Model model) {
         model.addAttribute("product", new ProductDto());
         return "updateProduct";
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String updateProduct(@ModelAttribute("product") ProductDto productDto) {
-        productService.updateProduct(getProductFromProductDto(productDto));
+        productService.updateProduct(productDto.getProductId(), productDto.getName(), productDto.getPrice(), productDto.getShopId());
         return "updateProductSuccess";
     }
 
