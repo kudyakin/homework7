@@ -1,20 +1,20 @@
 package com.kudiukin.homework6.service;
 
-import com.kudiukin.homework6.dto.ProductDto;
 import com.kudiukin.homework6.NotFoundException;
+import com.kudiukin.homework6.model.Product;
 
 import java.util.List;
 
 public interface ProductService {
 
-    ProductDto createProduct(ProductDto productDto) throws NotFoundException;
+    Product createProduct(String name, Double price, Long shopId) throws NotFoundException;
 
-    ProductDto getProductById(Long productId) throws NotFoundException;
+    Product getProductById(Long productId) throws NotFoundException;
 
-    ProductDto updateProduct(ProductDto productDto);
+    Product updateProduct(Product product);
 
     void deleteProduct(Long productId) throws NotFoundException;
 
-    List<ProductDto> getAllProducts();
+    List<Product> getAllProducts();
 
 }

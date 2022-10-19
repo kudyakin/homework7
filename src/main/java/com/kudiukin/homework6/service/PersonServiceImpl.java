@@ -1,16 +1,12 @@
 package com.kudiukin.homework6.service;
 
-import com.kudiukin.homework6.dto.PersonDto;
+import com.kudiukin.homework6.model.Person;
 import com.kudiukin.homework6.repository.PersonRepository;
 import com.kudiukin.homework6.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
-
-import static com.kudiukin.homework6.converter.PersonConverter.getPersonDtoFromPerson;
-import static com.kudiukin.homework6.converter.PersonConverter.getPersonFromPersonDto;
 
 @Service
 public class PersonServiceImpl implements PersonService {
@@ -22,14 +18,14 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public PersonDto createPerson(PersonDto personDto) {
-        return getPersonDtoFromPerson(personRepository.save(getPersonFromPersonDto(personDto)));
+    public Person createPerson(Person person) {
+        return personRepository.save(person);
     }
 
     @Override
-    public PersonDto getPersonById(Long id) throws NotFoundException {
+    public Person getPersonById(Long id) throws NotFoundException {
         if (personRepository.findById(id).isPresent()) {
-            return getPersonDtoFromPerson(personRepository.findById(id).get());
+            return personRepository.findById(id).get();
         } else {
             throw new NotFoundException("Person with ID #" + id + " is not found");
         }
@@ -45,23 +41,21 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public PersonDto updatePerson(PersonDto personDto) {
-        return personRepository.findById(personDto.getId())
+    public Person updatePerson(Person person) {
+        return personRepository.findById(person.getId())
                 .map(entity -> {
-                    entity.setFirstName(personDto.getFirstName());
-                    entity.setLastName(personDto.getLastName());
-                    entity.setEmail(personDto.getEmail());
-                    entity.setPhone(personDto.getPhone());
+                    entity.setFirstName(person.getFirstName());
+                    entity.setLastName(person.getLastName());
+                    entity.setEmail(person.getEmail());
+                    entity.setPhone(person.getPhone());
                     personRepository.save(entity);
-                    return getPersonDtoFromPerson(entity);
+                    return entity;
                 })
-                .orElseThrow(() -> new EntityNotFoundException("Not Found id = " + personDto.getId()));
+                .orElseThrow(() -> new EntityNotFoundException("Not Found id = " + person.getId()));
     }
 
     @Override
-    public List<PersonDto> getAllPersons() {
-        List<PersonDto> personDtoList = new ArrayList<>();
-        personRepository.findAll().forEach(person -> personDtoList.add(getPersonDtoFromPerson(person)));
-        return personDtoList;
+    public List<Person> getAllPersons() {
+        return (List<Person>) personRepository.findAll();
     }
 }

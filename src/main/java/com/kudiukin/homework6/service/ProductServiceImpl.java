@@ -1,18 +1,12 @@
 package com.kudiukin.homework6.service;
 
-import com.kudiukin.homework6.dto.ProductDto;
 import com.kudiukin.homework6.model.Product;
 import com.kudiukin.homework6.repository.ProductRepository;
 import com.kudiukin.homework6.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
-
-import static com.kudiukin.homework6.converter.ProductConverter.getProductDtoFromProduct;
-import static com.kudiukin.homework6.converter.ProductConverter.getProductFromProductDto;
-import static com.kudiukin.homework6.converter.ShopConverter.getShopFromShopDto;
 
 @Service
 public class ProductServiceImpl implements ProductService{
@@ -27,43 +21,43 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public ProductDto createProduct(ProductDto productDto) throws NotFoundException {
-        Product product = new Product(productDto.getName(), productDto.getPrice());
-        product.setShop(getShopFromShopDto(shopService.getShopById(productDto.getShopId())));
-        shopService.getShopById(productDto.getShopId()).getProducts().add(product);
+    public Product createProduct(String name, Double price, Long shopId) throws NotFoundException {
+        Product product = new Product(name, price);
+        product.setShop(shopService.getShopById(shopId));
+        shopService.getShopById(shopId).getProducts().add(product);
         productRepository.save(product);
-        return getProductDtoFromProduct(product);
+        return product;
     }
 
     @Override
-    public ProductDto getProductById(Long productId) throws NotFoundException {
+    public Product getProductById(Long productId) throws NotFoundException {
         if (productRepository.findById(productId).isPresent()) {
-            return getProductDtoFromProduct(productRepository.findById(productId).get());
+            return (productRepository.findById(productId).get());
         } else {
             throw new NotFoundException("Product with ID #" + productId + " is not found");
         }
     }
 
     @Override
-    public ProductDto updateProduct(ProductDto productDto) {
-        return productRepository.findById(productDto.getProductId())
+    public Product updateProduct(Product product) {
+        return productRepository.findById(product.getId())
                 .map(entity -> {
-                    entity.setName(productDto.getName());
-                    entity.setPrice(productDto.getPrice());
+                    entity.setName(product.getName());
+                    entity.setPrice(product.getPrice());
                     try {
-                        entity.setShop(getShopFromShopDto(shopService.getShopById(productDto.getShopId())));
+                        entity.setShop(shopService.getShopById(product.getShop().getId()));
                     } catch (NotFoundException e) {
                         throw new RuntimeException(e);
                     }
-                    return getProductDtoFromProduct(productRepository.save(entity));
+                    return productRepository.save(entity);
                 })
-                .orElseThrow(() -> new EntityNotFoundException("Not Found id = " + productDto.getProductId()));
+                .orElseThrow(() -> new EntityNotFoundException("Not Found id = " + product.getId()));
     }
 
     @Override
     public void deleteProduct(Long productId) throws NotFoundException {
         if (productRepository.existsById(productId)) {
-            shopService.getShopById((productRepository.findById(productId).get()).getShop().getId()).getProducts().remove(getProductFromProductDto(getProductById(productId)));
+            shopService.getShopById((productRepository.findById(productId).get()).getShop().getId()).getProducts().remove(getProductById(productId));
             productRepository.deleteById(productId);
         } else {
             throw new NotFoundException("Product with ID #" + productId + " is not found");
@@ -71,9 +65,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public List<ProductDto> getAllProducts() {
-        List<ProductDto> productDtoList = new ArrayList<>();
-        productRepository.findAll().forEach(product -> productDtoList.add(getProductDtoFromProduct(product)));
-        return productDtoList;
+    public List<Product> getAllProducts() {
+        return (List<Product>) productRepository.findAll();
     }
 }

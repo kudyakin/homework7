@@ -1,14 +1,11 @@
 package com.kudiukin.homework6.service;
 
-import com.kudiukin.homework6.dto.ShopDto;
+import com.kudiukin.homework6.model.Shop;
 import com.kudiukin.homework6.repository.ShopRepository;
 import com.kudiukin.homework6.NotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import static com.kudiukin.homework6.converter.ShopConverter.*;
 
 @Service
 public class ShopServiceImpl implements ShopService{
@@ -19,8 +16,8 @@ public class ShopServiceImpl implements ShopService{
     }
 
     @Override
-    public ShopDto createShop(ShopDto shopDto) {
-        return getShopDtoFromShop(shopRepository.save(getShopFromShopDto(shopDto)));
+    public Shop createShop(Shop shop) {
+        return shopRepository.save(shop);
     }
 
     @Override
@@ -33,18 +30,16 @@ public class ShopServiceImpl implements ShopService{
     }
 
     @Override
-    public ShopDto getShopById(Long shopId) throws NotFoundException {
+    public Shop getShopById(Long shopId) throws NotFoundException {
         if (shopRepository.findById(shopId).isPresent()) {
-            return getShopDtoFromShop(shopRepository.findById(shopId).get());
+            return shopRepository.findById(shopId).get();
         } else {
             throw new NotFoundException("Shop with ID #" + shopId + " is not found");
         }
     }
 
     @Override
-    public List<ShopDto> getAllShops() {
-        List<ShopDto> shopDtoList = new ArrayList<>();
-        shopRepository.findAll().forEach(shop -> shopDtoList.add(getShopDtoFromShop(shop)));
-        return shopDtoList;
+    public List<Shop> getAllShops() {
+        return (List<Shop>) shopRepository.findAll();
     }
 }

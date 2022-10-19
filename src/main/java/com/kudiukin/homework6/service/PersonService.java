@@ -1,19 +1,19 @@
 package com.kudiukin.homework6.service;
 
-import com.kudiukin.homework6.dto.PersonDto;
 import com.kudiukin.homework6.NotFoundException;
+import com.kudiukin.homework6.model.Person;
 
 import java.util.List;
 
 public interface PersonService {
 
-    PersonDto createPerson(PersonDto personDto);
+    Person createPerson(Person person);
 
-    PersonDto getPersonById(Long id) throws NotFoundException;
+    Person getPersonById(Long id) throws NotFoundException;
 
-    PersonDto updatePerson(PersonDto personDto);
+    Person updatePerson(Person person);
 
     void deletePerson(Long id) throws NotFoundException;
 
-    List<PersonDto> getAllPersons();
+    List<Person> getAllPersons();
 }

@@ -1,11 +1,17 @@
 package com.kudiukin.homework6.controller;
 
+import com.kudiukin.homework6.converter.ProductConverter;
 import com.kudiukin.homework6.dto.ProductDto;
 import com.kudiukin.homework6.service.ProductService;
 import com.kudiukin.homework6.NotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.stream.Collectors;
+
+import static com.kudiukin.homework6.converter.ProductConverter.getProductDtoFromProduct;
+import static com.kudiukin.homework6.converter.ProductConverter.getProductFromProductDto;
 
 @Controller
 @RequestMapping(path="/api/product")
@@ -25,7 +31,7 @@ public class ProductController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String createProduct(@ModelAttribute("product") ProductDto productDto) throws NotFoundException {
-        productService.createProduct(productDto);
+        productService.createProduct(productDto.getName(), productDto.getPrice(), productDto.getShopId());
         return "createProductSuccess";
     }
 
@@ -37,7 +43,7 @@ public class ProductController {
 
     @RequestMapping(value = "/get", method = RequestMethod.POST)
     public String getProductById(@ModelAttribute("productById") ProductDto productDto, Model model) throws NotFoundException {
-        ProductDto productById = productService.getProductById(productDto.getProductId());
+        ProductDto productById = getProductDtoFromProduct(productService.getProductById(productDto.getProductId()));
         model.addAttribute("productById", productById);
         return "getProductSuccess";
     }
@@ -50,7 +56,7 @@ public class ProductController {
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String updateProduct(@ModelAttribute("product") ProductDto productDto) {
-        productService.updateProduct(productDto);
+        productService.updateProduct(getProductFromProductDto(productDto));
         return "updateProductSuccess";
     }
 
@@ -68,7 +74,8 @@ public class ProductController {
 
     @GetMapping( "/all")
     public String getAllProducts(Model model) {
-        model.addAttribute("all", productService.getAllProducts());
+        model.addAttribute("all", productService.getAllProducts().stream()
+                .map(ProductConverter::getProductDtoFromProduct).collect(Collectors.toList()));
         return "allProducts";
     }
 }

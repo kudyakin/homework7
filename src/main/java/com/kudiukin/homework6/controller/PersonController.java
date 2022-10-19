@@ -1,11 +1,17 @@
 package com.kudiukin.homework6.controller;
 
+import com.kudiukin.homework6.converter.PersonConverter;
 import com.kudiukin.homework6.dto.PersonDto;
 import com.kudiukin.homework6.service.PersonService;
 import com.kudiukin.homework6.NotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.stream.Collectors;
+
+import static com.kudiukin.homework6.converter.PersonConverter.getPersonDtoFromPerson;
+import static com.kudiukin.homework6.converter.PersonConverter.getPersonFromPersonDto;
 
 @Controller
 @RequestMapping(path="/api/person")
@@ -24,7 +30,7 @@ public class PersonController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String createPerson(@ModelAttribute("person") PersonDto personDto){
-        personService.createPerson(personDto);
+        personService.createPerson(getPersonFromPersonDto(personDto));
         return "createPersonSuccess";
     }
 
@@ -36,7 +42,7 @@ public class PersonController {
 
     @RequestMapping(value = "/get", method = RequestMethod.POST)
     public String getPersonById(@ModelAttribute("personById") PersonDto personDto, Model model) throws NotFoundException {
-        PersonDto personById = personService.getPersonById(personDto.getId());
+        PersonDto personById = getPersonDtoFromPerson(personService.getPersonById(personDto.getId()));
         model.addAttribute("personById", personById);
         return "getPersonSuccess";
     }
@@ -49,7 +55,7 @@ public class PersonController {
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String updatePerson(@ModelAttribute("person") PersonDto personDto) {
-        personService.updatePerson(personDto);
+        personService.updatePerson(getPersonFromPersonDto(personDto));
         return "updatePersonSuccess";
     }
 
@@ -67,7 +73,8 @@ public class PersonController {
 
     @GetMapping( "/all")
     public String getAllPersons(Model model) {
-        model.addAttribute("all", personService.getAllPersons());
+        model.addAttribute("all", personService.getAllPersons().stream()
+                .map(PersonConverter::getPersonDtoFromPerson).collect(Collectors.toList()));
         return "allPersons";
     }
 }
