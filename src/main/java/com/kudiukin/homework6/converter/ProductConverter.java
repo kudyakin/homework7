@@ -5,7 +5,7 @@ import com.kudiukin.homework6.model.Product;
 
 public final class ProductConverter {
 
-    public static ProductDto getProductDtoFromProduct (Product product) {
+    public static ProductDto convertProductModel2ProductDto (Product product) {
         ProductDto productDto = new ProductDto();
         productDto.setName(product.getName());
         productDto.setPrice(product.getPrice());
@@ -13,14 +13,5 @@ public final class ProductConverter {
         productDto.setProductId(product.getId());
         productDto.setShop(product.getShop());
         return productDto;
-    }
-
-    public static Product getProductFromProductDto (ProductDto productDto) {
-        Product product = new Product ();
-        product.setName(productDto.getName());
-        product.setPrice(productDto.getPrice());
-        product.setId(productDto.getProductId());
-        product.setShop(productDto.getShop());
-        return product;
     }
 }

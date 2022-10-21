@@ -6,6 +6,7 @@ import com.kudiukin.homework6.NotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -21,7 +22,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Product createProduct(String name, Double price, Long shopId) throws NotFoundException {
+    public Product createProduct(String name, BigDecimal price, Long shopId) throws NotFoundException {
         Product product = new Product(name, price);
         product.setShop(shopService.getShopById(shopId));
         shopService.getShopById(shopId).getProducts().add(product);
@@ -39,7 +40,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Product updateProduct(Long productId, String name, Double price, Long shopId) {
+    public Product updateProduct(Long productId, String name, BigDecimal price, Long shopId) {
         return productRepository.findById(productId)
                 .map(entity -> {
                     entity.setName(name);

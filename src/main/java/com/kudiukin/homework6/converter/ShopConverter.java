@@ -5,7 +5,7 @@ import com.kudiukin.homework6.model.Shop;
 
 public final class ShopConverter {
 
-    public static ShopDto getShopDtoFromShop(Shop shop) {
+    public static ShopDto convertShopModel2ShopDto (Shop shop) {
         ShopDto shopDto = new ShopDto();
         shopDto.setId(shop.getId());
         shopDto.setName(shop.getName());
@@ -14,7 +14,7 @@ public final class ShopConverter {
         return shopDto;
     }
 
-    public static Shop getShopFromShopDto(ShopDto shopDto) {
+    public static Shop convertShopDto2ShopModel (ShopDto shopDto) {
         Shop shop = new Shop();
         shop.setId(shopDto.getId());
         shop.setName(shopDto.getName());

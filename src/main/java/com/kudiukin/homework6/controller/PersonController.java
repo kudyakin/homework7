@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.stream.Collectors;
 
-import static com.kudiukin.homework6.converter.PersonConverter.getPersonDtoFromPerson;
-import static com.kudiukin.homework6.converter.PersonConverter.getPersonFromPersonDto;
+import static com.kudiukin.homework6.converter.PersonConverter.convertPersonDto2PersonModel;
+import static com.kudiukin.homework6.converter.PersonConverter.convertPersonModel2PersonDto;
 
 @Controller
 @RequestMapping(path="/api/person")
@@ -22,59 +22,59 @@ public class PersonController {
         this.personService = personService;
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public String createPersonView(Model model) {
-        model.addAttribute("person", new PersonDto());
-        return "createPerson";
-    }
-
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String createPerson(@ModelAttribute("person") PersonDto personDto){
-        personService.createPerson(getPersonFromPersonDto(personDto));
-        return "createPersonSuccess";
-    }
-
-    @RequestMapping(value = "/get", method = RequestMethod.GET)
-    public String getPersonByIdView(Model model) {
-        model.addAttribute("personById", new PersonDto());
-        return "getPerson";
+        personService.createPerson(convertPersonDto2PersonModel(personDto));
+        return "/person/createPersonSuccess";
     }
 
     @RequestMapping(value = "/get", method = RequestMethod.POST)
     public String getPersonById(@ModelAttribute("personById") PersonDto personDto, Model model) throws NotFoundException {
-        PersonDto personById = getPersonDtoFromPerson(personService.getPersonById(personDto.getId()));
+        PersonDto personById = convertPersonModel2PersonDto(personService.getPersonById(personDto.getId()));
         model.addAttribute("personById", personById);
-        return "getPersonSuccess";
-    }
-
-    @RequestMapping(value = "/update", method = RequestMethod.GET)
-    public String updatePersonView(Model model) {
-        model.addAttribute("person", new PersonDto());
-        return "updatePerson";
+        return "/person/getPersonSuccess";
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public String updatePerson(@ModelAttribute("person") PersonDto personDto) {
-        personService.updatePerson(getPersonFromPersonDto(personDto));
-        return "updatePersonSuccess";
-    }
-
-    @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public String deletePersonView(Model model) {
-        model.addAttribute("person", new PersonDto());
-        return "deletePerson";
+        personService.updatePerson(convertPersonDto2PersonModel(personDto));
+        return "/person/updatePersonSuccess";
     }
 
     @RequestMapping(value = "/delete", method = {RequestMethod.DELETE, RequestMethod.POST})
     public String deletePerson(@ModelAttribute("person") PersonDto personDto) throws NotFoundException {
         personService.deletePerson(personDto.getId());
-        return "deletePersonSuccess";
+        return "/person/deletePersonSuccess";
+    }
+
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public String createPersonView(Model model) {
+        model.addAttribute("person", new PersonDto());
+        return "/person/createPerson";
+    }
+
+    @RequestMapping(value = "/get", method = RequestMethod.GET)
+    public String getPersonByIdView(Model model) {
+        model.addAttribute("personById", new PersonDto());
+        return "/person/getPerson";
+    }
+
+    @RequestMapping(value = "/update", method = RequestMethod.GET)
+    public String updatePersonView(Model model) {
+        model.addAttribute("person", new PersonDto());
+        return "/person/updatePerson";
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public String deletePersonView(Model model) {
+        model.addAttribute("person", new PersonDto());
+        return "/person/deletePerson";
     }
 
     @GetMapping( "/all")
     public String getAllPersons(Model model) {
         model.addAttribute("all", personService.getAllPersons().stream()
-                .map(PersonConverter::getPersonDtoFromPerson).collect(Collectors.toList()));
-        return "allPersons";
+                .map(PersonConverter::convertPersonModel2PersonDto).collect(Collectors.toList()));
+        return "/person/allPersons";
     }
 }

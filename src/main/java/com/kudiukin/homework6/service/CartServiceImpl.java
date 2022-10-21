@@ -33,11 +33,11 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public Cart addProductByProductIdAndCartId(Long cartId, Long productId) throws NotFoundException {
-        Cart cart = cartRepository.findById(cartId).get();
+        Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new NotFoundException(cartId.toString()));
         Product product = productService.getProductById(productId);
         if (cartRepository.findById(cartId).isPresent()) {
             cart.getProducts().add(product);
-            cart.setSum(cart.getSum().add(BigDecimal.valueOf(productService.getProductById(productId).getPrice())));
+            cart.setSum(cart.getSum().add(productService.getProductById(productId).getPrice()));
             cartRepository.save(cart);
             return cart;
         } else {
@@ -47,14 +47,14 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public Cart removeProductByProductIdAndCartId(Long cartId, Long productId) throws NotFoundException {
-        Cart cart = cartRepository.findById(cartId).get();
+        Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new NotFoundException(cartId.toString()));
         Product product = productService.getProductById(productId);
         if (cartRepository.findById(cartId).isPresent()) {
             cart.getProducts().remove(product);
             if (cart.getSum().compareTo(new BigDecimal("0.0")) != 0) {
-                cart.setSum(cart.getSum().subtract(BigDecimal.valueOf(productService.getProductById(productId).getPrice())));
+                cart.setSum(cart.getSum().subtract(productService.getProductById(productId).getPrice()));
             } else {
-                cart.setSum(BigDecimal.valueOf(0.0));
+                cart.setSum(new BigDecimal("0.00"));
             }
             cartRepository.save(cart);
             return cart;
@@ -66,7 +66,7 @@ public class CartServiceImpl implements CartService {
     @Override
     public void removeAllProductsFromCartById(Long cartId) throws NotFoundException {
         if (cartRepository.findById(cartId).isPresent()) {
-            Cart cart = cartRepository.findById(cartId).get();
+            Cart cart = cartRepository.findById(cartId).orElseThrow(() -> new NotFoundException(cartId.toString()));
             cart.getProducts().clear();
             cart.setSum(new BigDecimal("0.00"));
             cartRepository.save(cart);

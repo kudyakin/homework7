@@ -5,7 +5,7 @@ import com.kudiukin.homework6.model.Person;
 
 public final class PersonConverter {
 
-    public static PersonDto getPersonDtoFromPerson (Person person) {
+    public static PersonDto convertPersonModel2PersonDto (Person person) {
         PersonDto personDto = new PersonDto();
         personDto.setId(person.getId());
         personDto.setFirstName(person.getFirstName());
@@ -16,7 +16,7 @@ public final class PersonConverter {
         return personDto;
     }
 
-    public static Person getPersonFromPersonDto (PersonDto personDto) {
+    public static Person convertPersonDto2PersonModel (PersonDto personDto) {
         Person person = new Person ();
         person.setId(personDto.getId());
         person.setFirstName(personDto.getFirstName());

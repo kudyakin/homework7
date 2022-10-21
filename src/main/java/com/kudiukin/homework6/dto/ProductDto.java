@@ -4,13 +4,15 @@ import com.kudiukin.homework6.model.Shop;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 public class ProductDto {
 
     private String name;
 
-    private Double price;
+    private BigDecimal price;
 
     private Long shopId;
 
