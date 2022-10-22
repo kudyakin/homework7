@@ -28,7 +28,7 @@
 </div>
 <div align="center">
     <h2>Clean cart by ID</h2>
-    <%--@elvariable id="cart" type="com.kudiukin.homework6.dto.CartDto"--%>
+    <%--@elvariable id="cart" type="com.kudiukin.homework7.dto.CartDto"--%>
     <form:form action="clean" method="post" modelAttribute="cart">
 
         <form:label path="cartId">ID:</form:label>

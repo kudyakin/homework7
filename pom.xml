@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.kudiukin</groupId>
-    <artifactId>homework4</artifactId>
+    <artifactId>homework7</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>homework4</name>
-    <description>homework4</description>
+    <description>homework7</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
@@ -54,6 +54,15 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+            <version>5.2.0.RELEASE</version>
         </dependency>
     </dependencies>
 
