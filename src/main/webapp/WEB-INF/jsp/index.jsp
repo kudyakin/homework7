@@ -1,4 +1,5 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -20,12 +21,20 @@
         <c:when test="${pageContext.request.userPrincipal.name == null}">Welcome! Log in or register, please:</c:when>
         <c:otherwise>Welcome, ${pageContext.request.userPrincipal.name}!</c:otherwise>
     </c:choose></h3>
+
     <sec:authorize access="isAuthenticated()">
         <h4><a href="/logout">Log out</a></h4>
     </sec:authorize>
+
     <sec:authorize access="!isAuthenticated()">
         <a href="${pageContext.request.contextPath}/login">Log in</a><br>
         <a href="${pageContext.request.contextPath}/registration">Registration</a>
+    </sec:authorize>
+
+    <sec:authorize access="hasRole('ADMIN')">
+        <h4>
+        <a href="${pageContext.request.contextPath}api/person/all">-->>View all customers<<--</a><br>
+        </h4>
     </sec:authorize>
 
         <h2>Persons</h2>

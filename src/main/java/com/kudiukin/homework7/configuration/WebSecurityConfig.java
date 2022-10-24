@@ -25,16 +25,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         String[] antMatchersForAdmin = {"/api/person/all", "/api/cart/clean", "/api/person/get", "/api/person/delete",
                 "/api/product/create", "/api/product/update", "/api/product/delete", "/api/cart/all", "api/cart/delete",
                 "/api/shop/create", "/api/shop/delete"};
-        String[] antMatchersForCustomer = {"/api/person/update", "/api/product/get", "/api/cart/create",
-                 "/api/cart/get", "api/cart/add", "/api/cart/remove", "api/cart/clean", "/api/shop/get"};
+        String[] antMatchersForCustomer = {"/api/person/update", "/api/product/all", "/api/product/get",
+                "/api/cart/create", "/api/cart/get", "api/cart/add", "/api/cart/remove", "api/cart/clean",
+                "/api/shop/all/", "/api/shop/get"};
         http.headers().frameOptions().disable();
         http.csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/index").permitAll()
-                .antMatchers("/registration").permitAll()
-                .antMatchers("/shop/all").permitAll()
-                .antMatchers("/product/all").permitAll()
+                .antMatchers("/index", "/registration", "/api/shop/all", "/api/product/all").permitAll()
                 .antMatchers(antMatchersForAdmin).hasRole("ADMIN")
                 .antMatchers(antMatchersForCustomer).hasAnyRole("ADMIN", "CUSTOMER")
                 .and()

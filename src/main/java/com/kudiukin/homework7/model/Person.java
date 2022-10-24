@@ -28,8 +28,8 @@ public class Person implements UserDetails {
 
     @Transient
     private String passwordConfirm;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Cart> carts = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
